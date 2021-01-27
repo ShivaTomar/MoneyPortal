@@ -1,0 +1,165 @@
+{{>Head}}
+
+<body>
+  {{>Header}}
+
+  <div class="parent-div">
+    <!-- Sidebar Navigation-->
+    <div id="SideMenu">
+      {{>SideMenu}}
+    </div>
+
+    <div class="page-content margin-left">
+
+      <div class="page-header ">
+        <div class="content-fulid d-flex justify-content-between">
+          <h2 class="page-title" id="household-title">{{title}}</h2>
+        </div>
+      </div>
+
+      <section id="dashBoard">
+        <div class="container" id="BodySection">
+
+          <div class="tab-content block-body collapsable" id="myAccountsContent">
+            <table id="dtBasicExample" class="table dataTable table-striped table-bordered table-sm" cellspacing="0"
+              width="100%">
+              <thead>
+                <tr>
+                  <th class="th-sm" id="Account">Account</th>
+                  <th class="th-sm" id="Current-Balance">Current Balance</th>
+                  <th class="th-sm" id="Low-Balance-Alert">Low Balance Alert</th>
+                  <th class="th-sm" id="Owner">Owner</th>
+                  <th class="th-sm sorting_disabled" id="Unlink"></th>
+                </tr>
+              </thead>
+
+              <tbody id="tableData">
+
+                {{#each BankAccounts}}
+                <tr>
+                  <td class="sorting_1">
+                    {{#checkType accountType 'Checking'}}
+                      <i class="fas fa-lg fa-money-check-alt"></i>
+                    {{/checkType}}
+
+                    {{#checkType accountType 'Savings'}}
+                      <i class="fas fa-lg fa-piggy-bank"></i>
+                    {{/checkType}}
+
+                    {{#checkType accountType 'Credit'}}
+                      <i class="fas fa-lg fa-credit-card "></i>
+                    {{/checkType}}
+                    <span>{{name}}</span></a>
+                  </td>
+
+                  <td> ${{CurrentBalance}}.00 </td>
+                  <td> ${{LowBalance}}.00 </td>
+                  <td> {{FirstName}} {{LastName}} </td>
+
+                  <td class="text-right">
+                    {{#if (IsInRole "Owner")}}
+                      <button type="button" class="btn btn-primary btn-remove-account" value="{{_id}}">Unlink</button>
+                    {{else}}
+                      {{#if (IsBankOwner @root.ownerEmail email)}}
+                          <button type="button" class="btn btn-primary btn-remove-account" value="{{_id}}">Unlink</button>
+                      {{/if}}
+                    {{/if}}
+                  </td>
+                </tr>
+                {{/each}}
+
+              </tbody>
+
+            </table>
+          </div>
+
+        </div>
+      </section>
+
+      <!--FOOTER-->
+      <footer id="footer">
+        <footer class="footer-block">
+          <footer class="container-fluid">
+            <p>2020 © MoneyPortal. A <a href="#">Q's Lab Technology</a> Service.</p>
+          </footer>
+        </footer>
+      </footer>
+    </div>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+  <!--Scripts-->
+  <script type="text/javascript" src="../shared.js"></script>
+  <script type="text/javascript" src="../all-script.js"></script>
+  <script type="text/javascript" src="../Bootstrap.js"></script>
+
+  <!--plugins-->
+  <script type="text/javascript" src="/../toastr.min.js"></script>
+  <script type="text/javascript" src="/../addons/jquery.min.js"></script>
+  <script type="text/javascript" src="/../addons/popper.min.js"></script>
+  <script type="text/javascript" src="/../addons/datatables.min.js"></script>
+
+  <script>
+
+    /*--ACTIVE SIDE MENU--*/
+    $('#dd-household-link').click()
+    $('#household-bank-accounts').addClass('active')
+
+    /*--DRAW TABLE BANK ACCOUNT--*/
+    let tables = $('.table').DataTable({
+      "order": [0, 'asc']
+    });
+
+    /*--REMOVE BANK ACCOUNT FROM HOUSEHOLD--*/
+    $('.btn-remove-account').on('click', (e) => {
+      $.ajax({
+        type: "POST",
+        url: "/Households/RemoveBankAccount",
+        data: {
+          accountId: $(e.currentTarget).val()
+        },
+        dataType: "json",
+        success: function (result) {
+          if (result == true) {
+            toastr["success"]("You have unlinked the account from the household!.", "Bank Account Unlinked!");
+            tables.row(e.target.closest('tr')).remove().draw();
+          } else {
+            toastr["error"]("The account could not be unlinked.", "Error!");
+          }
+        },
+        error: function (result) {
+          toastr["error"]("There was an error submitting your request.", "Submission Error!");
+        }
+      });
+    });
+
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      $('.Household_feature-list').slideDown(300);
+      $('#feat-Household').addClass("click");
+    })
+
+    $('#feat-Household').click(function () {
+      $(this).toggleClass("click");
+      $('.Household_feature-list').slideToggle(300);
+      $('#feat-Household .toggle').toggleClass("rotate");
+    });
+
+    function CommaFormatted(nStr) {
+      nStr += '';
+      var x = nStr.split('.');
+      var x1 = x[0];
+      var x2 = x.length > 1 ? '.' + x[1] : '';
+      var rgx = /(\d+)(\d{3})/;
+      while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+      }
+      return x1 + x2;
+    }
+  </script>
+</body>
+
+</html>

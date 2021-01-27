@@ -1,0 +1,162 @@
+<nav class="sidebar">
+  <!--USER HEADER-->
+  <a href="/Manage/UserProfile" class="user-profile">
+    <div class="sidebar-header align-items-center">
+      <div class="avatar-border">
+        <img src="/../Images/Stock/personal.png" id="header_ProfileImage">
+      </div>
+      <div class="title">
+        <h1>Demo Personal</h1>
+      </div>
+    </div>
+  </a>
+
+  <!--USER HEADING-->
+  <span class="heading">{{role}}</span>
+
+  <!--SIDEMENU LIST-->
+  <ul class="unstyled-lists">
+
+    {{#if (IsInRole role)}}
+    <!--HOUSEHOLD LIST-->
+    <li id="Household-list">
+      <a href="#" id="feat-Household">
+        <i class="fas fa-lg fa-home vertical-border"></i>
+        <span class="text">Household</span>
+        <span class="fas fa-angle-down toggle"></span>
+      </a>
+
+      <ul class="Household_feature-list">
+        <li id="household-dashboard"><a href="/Dashboard/Household">
+            <i class="fas fa-lg fa-tachometer-alt vertical-border"></i>
+            <span class="text">Dashboard</span></a>
+        </li>
+        <li id="household-transactions"><a href="/Households/Transactions">
+            <i class="fas fa-lg fa-money-check vertical-border "></i>
+            <span class="text">Transactions</span></a>
+        </li>
+        <li id="household-bank-accounts"><a href="/Households/BankAccounts">
+            <i class="fas fa-lg fa-university vertical-border "></i>
+            <span class="text">Accounts</span></a>
+        </li>
+        <li id="household-members"><a href="/Households/Members">
+            <i class="fas fa-lg fa-users vertical-border "></i>
+            <span class="text">Members</span></a>
+        </li>
+      </ul>
+    </li>
+    {{else}}
+    <li class="active-primary" id="first-child">
+      <a href="/Dashboard/Main">
+        <i class="fas fa-lg fa-tachometer-alt vertical-border"></i>
+        <span class="text">Lobby</span>
+      </a>
+    </li>
+    {{/if}}
+
+    <li>
+      <a href="#" class="feat-btn">
+        <i class="fas fa-lg fa-university vertical-border"></i>
+        <span class="text">Bank Accounts</span>
+        <span class="fas fa-angle-left toggle"></span>
+      </a>
+
+      <!--SIDEMENU INNER LIST-->
+      <ul class="feat-show" id="ba-parent">
+        {{#each accounts}}
+        <li><a href="/BankAccounts/AccountDetails?accountId={{_id}}" id="ba-{{id}}" onclick="ActiveAccount()">
+            {{#checkType accountType 'Checking'}}
+            <i class="fas fa-lg fa-money-check-alt vertical-border"></i>
+            {{/checkType}}
+
+            {{#checkType accountType 'Savings'}}
+            <i class="fas fa-lg fa-piggy-bank vertical-border"></i>
+            {{/checkType}}
+
+            {{#checkType accountType 'Credit'}}
+            <i class="fas fa-lg fa-credit-card vertical-border"></i>
+            {{/checkType}}
+            <span class="text">{{name}}</span></a>
+        </li>
+        {{/each}}
+        <li><a href="#" id="Add-BA" onclick="bankmodel()">
+            <i class="fas fa-lg fa-plus vertical-border "></i>
+            <span class="text">Add Bank Account</span></a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+<!--MODALS FOR MULTIPLE VIEWS-->
+<!---ADD BANK ACCOUNT--->
+<div id="modal-add-Bank-Account" class="modal d-flex justify-content-center container">
+  <!--Modal Content-->
+  <div class="modal-content">
+    <!--Modal Header-->
+    <div class="modal-header d-flex">
+      <h4 class="modal-title">Add Bank Account</h4>
+      <div class="data-dismiss">
+        <i class="fas fa-lg fa-times btn btn-block-close"></i>
+      </div>
+    </div>
+    <!--form-->
+    <form id="AddBankAccount" action="/Accounts/AddAccount" method="POST">
+      <div class="modal-body">
+        <!--Add Account-->
+        <div class="form-group row">
+          <label class="Account-label" for="Account_Name">Account Name</label>
+          <div class="col-md-9" style="padding-left: 36px;">
+            <input type="text" class="form-control" name="name" id="Account_Name" required>
+          </div>
+        </div>
+
+        <!--Type Account-->
+        <div class="form-group row">
+          <label class="Type-label" for="Type">Type</label>
+          <div class="col-md-9" style="padding-left: 96px;">
+            <select class="form-control" name="accountType" id="Types">
+              <option value="Checking">Checking</option>
+              <option value="Savings">Savings</option>
+              <option value="Credit">Credit</option>
+            </select>
+          </div>
+        </div>
+
+        <!--Staring Balance-->
+        <div class="form-group row">
+          <label class="startBalance-label" for="Staring_Balance">Starting Balance</label>
+          <div class="col-md-9" style="display: flex; padding-left: 26px;">
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</span>
+            </div>
+            <input type="number" step="0.01" class="form-control"  name="CurrentBalance" required>
+
+            <div class="input-group-append">
+              <span class="input-group-text">.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!--Low Balance Alert-->
+        <div class="form-group row">
+          <label class="lowBalance-label" for="Low_Balance">Low Balance Alert</label>
+          <div class="col-md-9" style="display: flex; padding-left: 20px;">
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</span>
+            </div>
+            <input type="number" class="form-control" name="LowBalance" step="0.01" required>
+            <div class="input-group-append">
+              <span class="input-group-text">.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Modal Footer-->
+      <div class="modal-footer d-flex">
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
+</div>

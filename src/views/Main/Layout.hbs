@@ -1,0 +1,388 @@
+{{>Head}}
+
+<body>
+  {{>Header}}
+
+  <div class="parent-div">
+    <!-- Sidebar Navigation-->
+    <div id="SideMenu">
+      {{>SideMenu}}
+    </div>
+
+    <div class="page-content margin-left">
+
+      <div class="page-header ">
+        <div class="content-fulid d-flex justify-content-between">
+          <h2 class="page-title" id="household-title">{{title}}</h2>
+        </div>
+      </div>
+
+      <section id="dashBoard">
+        <div class="container" id="BodySection">
+
+          {{#if (IsInRole role)}}
+          {{>Household}}
+          {{else}}
+          {{>Lobby}}
+          {{/if}}
+
+        </div>
+      </section>
+
+      <!--FOOTER-->
+      <footer id="footer">
+        <footer class="footer-block">
+          <footer class="container-fluid">
+            <p>2020 © MoneyPortal. A <a href="#">Q's Lab Technology</a> Service.</p>
+          </footer>
+        </footer>
+      </footer>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<!--Scripts-->
+  <script type="text/javascript" src="../shared.js"></script>
+  <script type="text/javascript" src="../all-script.js"></script>
+  <script type="text/javascript" src="../Bootstrap.js"></script>
+
+  <!--plugins-->
+  <script type="text/javascript" src="/../sweetalert2.all.min.js"></script>
+  <script type="text/javascript" src="/../toastr.min.js"></script>
+  <script type="text/javascript" src="/../addons/Chart.js"></script>
+
+  <script>
+    /*--DELETE HOUSEHOLD--*/
+    $('#shc-delete-household').on("click", () => {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Deleting your household will remove all Budgets & Members!",
+        icon: 'warning',
+        input: 'text',
+        inputPlaceholder: 'Enter DELETE if you wish to proceed.',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete',
+        backdrop: true
+      }).then((result) => {
+        if (result.value == 'DELETE') {
+          window.location.href = '/Households/Delete';
+        } else if (result.dismiss != Swal.DismissReason.cancel || result.dismiss != Swal.DismissReason.backdrop) {
+          Swal.fire({
+            title: 'Error!',
+            text: 'DELETE not confirmed!',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+          })
+        }
+      })
+    })
+
+    /*--JOIN BANK ACCOUNT AJAX--*/
+    $('#UserAccounts-form').on('submit', function (e) {
+      e.preventDefault();
+
+      var actionUrl = $(this).attr("action");
+      $.post(actionUrl, $(this).serialize(), function (accounts) {
+
+        if (accounts) {
+          if (jQuery.isEmptyObject(accounts)) {
+            $('#user-accounts-warning').empty()
+            $('#user-accounts-warning').append('<p><strong class="text-warning">No accounts to link.</strong></p>')
+            $('#btn-join-bank-account').hide()
+          }
+          else {
+            $("#dd-user-bank-accounts").empty();
+            for (let account of accounts) {
+              $("#dd-user-bank-accounts").append($("<option></option>").attr("value", account._id).text(`${account.name} - ${account.accountType}`));
+            }
+            $('#UserAccounts-form')[0].reset()
+          }
+          $('#account-statistics').load(`/Households/HouseholdStatistics`);
+          toastr["success"](`You have joined an account with the Household!`, "Bank Account Joined!");
+        } else {
+          toastr["error"]("The bank account was not joined to the Household", "Join Error!");
+        }
+      }).fail(function () {
+        toastr["error"]("There was an error submitting your request.", "Submit Error!");
+      })
+    });
+
+    /*--ADD BUDGET TO THE HOUSEHOLD AJAX--*/
+    $('#form-add-budget').on('submit', function (e) {
+      e.preventDefault();
+
+      var actionUrl = $(this).attr("action");
+      $.post(actionUrl, $(this).serialize(), function (Budgets) {
+
+        if (Budgets) {
+          $('#form-add-budget')[0].reset();
+          $('#dd-budgets').empty();
+
+          for (let budget of Budgets) {
+            $("#dd-budgets").append($("<option></option>").attr("value", budget._id).text(budget.name));
+          }
+          $('#div-budget-list').load("/Budgets/BudgetList");
+          $('#account-statistics').load(`/Households/HouseholdStatistics`);
+          toastr["success"](`Your Budget has been added`, "New Budget!");
+        }
+        else {
+          toastr["error"]("The bank account was not joined to the Household", "Join Error!")
+        }
+      }).fail(function () {
+        toastr["error"]("There was an error submitting your request.", "Submit Error!")
+      })
+    })
+
+    /*--ADD A BUDGET ITEM TO THE BUDGET CATEGORY--*/
+    $('#form-add-budget-item').on('submit', function (e) {
+      e.preventDefault();
+
+      var actionUrl = $(this).attr("action");
+      $.post(actionUrl, $(this).serialize(), function (result) {
+        if (result) {
+          $('#form-add-budget-item')[0].reset();
+          $('#div-budget-list').load("/Budgets/BudgetList");
+          toastr["success"](`Your Budget Item has been added`, "New Budget Item!");
+        }
+        else {
+          toastr["error"]("The bank account was not joined to the Household", "Join Error!")
+        }
+      }).fail(function () {
+        toastr["error"]("There was an error submitting your request.", "Submit Error!")
+      })
+    })
+
+    /*--REMOVE AN ITEM FROM THE BUDGET--*/
+    $('#form-remove-budget-item').on('submit', function (e) {
+      e.preventDefault();
+
+      var actionUrl = $(this).attr("action");
+      $.post(actionUrl, $(this).serialize(), function (result) {
+        if (result) {
+          toastr["warning"](`You have removed 1 item(s)!`, "Removed Budget Item.");
+          $('#div-budget-list').load("/Budgets/BudgetList");
+        }
+        else {
+          toastr["error"](`There was an error removing your budget item!`, "Removal Error.")
+        }
+      }).fail(function () {
+        toastr["error"]("There was an error submitting your request.", "Submit Error!")
+      })
+    })
+
+    //CHARTING
+
+    /*--CREATE HOUSE BUDGET CHART--*/
+    var budgets = $('#budgets-bar-chart');
+    $.ajax({
+      type: "POST",
+      url: "/Charts/BudgetsBar",
+      data: {
+        householdId: 0,
+      },
+      dataType: "json"
+    }).then(function (response) {
+      var myChart = new Chart(budgets, {
+        type: 'horizontalBar',
+        data: {
+          labels: response.Labels,
+          responsive: true,
+          datasets: [{
+            data: response.Data,
+            backgroundColor: response.Options.BackgroundColors,
+            borderColor: response.Options.BorderColors,
+            borderWidth: response.Options.BorderWidth,
+          }]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            xAxes: [{
+              ticks: {
+                callback: function (value, index, values) {
+                  return value.toLocaleString("en-US", { style: "currency", currency: "USD" });
+                }
+              }
+            }]
+          },
+          tooltips: {
+            callbacks: {
+              label: function (tooltipItem, data) {
+                return "$" + Number(tooltipItem.xLabel).toFixed(0).replace(/./g, function (c, i, a) {
+                  return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+                });
+              }
+            }
+          }
+        }
+      });
+    })
+
+    /*--CREATE BUDGETBREAKDOWN--*/
+    var breakdown = $('#budgets-breakdown-chart');
+    $.ajax({
+      type: "POST",
+      url: "/Charts/BudgetsBreakdownPie",
+      data: {
+        budgetId: $('#budget-select').val()
+      },
+      dataType: "json"
+    }).then(function (response) {
+      var breakdownChart = new Chart(breakdown, {
+        type: 'doughnut',
+        animationEnabled: true,
+        data: {
+          labels: response.Labels,
+          datasets:
+            [{
+              label: response.KeyLabel,
+              data: response.Data,
+              backgroundColor: response.Options.BackgroundColors,
+              borderColor: response.Options.BorderColors,
+              borderWidth: response.Options.BorderWidth
+            }]
+        }
+      });
+    });
+
+    /*--SHOWS BUDGET BREAKDOWN FOR SINGLE CATEGORY SELECTED--*/
+    $('#budget-select').change(function (e) {
+      $.ajax({
+        type: "POST",
+        url: "/Charts/BudgetsBreakdownPie",
+        data: { budgetId: $(e.currentTarget).val() },
+        dataType: "json"
+      }).then(function (response) {
+        $('#breakdown-block').empty()
+        $("#breakdown-block").append($("<canvas></canvas>").attr("id", "budgets-breakdown-chart"))
+        var breakdown = $('#budgets-breakdown-chart');
+        var breakdownChart = new Chart(breakdown, {
+          type: 'doughnut',
+          data: {
+            labels: response.Labels,
+            datasets:
+              [{
+                label: response.KeyLabel,
+                data: response.Data,
+                backgroundColor: response.Options.BackgroundColors,
+                borderColor: response.Options.BorderColors,
+                borderWidth: response.Options.BorderWidth
+              }]
+          }
+        });
+      });
+    });
+  </script>
+
+  <script>
+    /*-ACTIVE MENU BUTTON-*/
+    $('#dd-household-link').click()
+    $('#household-dashboard').addClass('active')
+
+    $(document).ready(function () {
+      $('.Household_feature-list').slideDown(300);
+      $('#feat-Household').addClass("click");
+    })
+
+    $('#feat-Household').click(function () {
+      $(this).toggleClass("click");
+      $('.Household_feature-list').slideToggle(300);
+      $('#feat-Household .toggle').toggleClass("rotate");
+    });
+
+    /*--Join BankAccount listners--*/
+    $('#shc-join-bank-account').on('click', () => {
+      $('#join-bank-account').slideDown();
+    })
+
+    $('#Join-account-dismiss').on('click', function () {
+      $('#join-bank-account').slideUp();
+    });
+
+    $('.btn-block-minimize').on('click', function () {
+      $('#UserAccounts-form').slideToggle();
+      $('#chevron').toggleClass('rotate-chevron');
+
+    });
+
+    /*--BudgetSelectBox listners--*/
+    $('#shc-create-budgets').on('click', () => {
+      $('#create-budgets').slideDown();
+    });
+
+    $('#budget-dismiss').on('click', () => {
+      $('#create-budgets').slideUp();
+    })
+
+    $('#budget-minimise').on('click', () => {
+      $('#Budget-content ').slideToggle();
+      $('#budget-minimise').toggleClass('rotate-chevron');
+    })
+
+    /*--Invite Member listners--*/
+    $('#shc-invite-member').on('click', () => {
+      $('#invite-member').slideDown();
+    });
+
+    $('#Invite-members-dismiss').on('click', () => {
+      $('#invite-member').slideUp();
+    })
+
+    $('.Invite-minimize').on('click', () => {
+      $('#Invite-members-content ').slideToggle();
+      $('.Invite-minimize').toggleClass('rotate-chevron');
+    })
+
+    /*--Budget Chart listners--*/
+    $('#Budget-minimise').on('click', () => {
+      $('#budget-chart-content').slideToggle();
+      $('#Budget-minimise').toggleClass('rotate-chevron');
+    })
+
+    $('#Budget-Breakdown-minimise').on('click', () => {
+      $('#Budget-Breakdown-content').slideToggle();
+      $('#Budget-Breakdown-minimise').toggleClass('rotate-chevron');
+    })
+
+    $(document).ready(function () {
+      $('.number').each(function () {
+        var $this = $(this),
+          countTo = $this.attr('data-count');
+
+        $({ countNum: $this.text() }).animate({
+          countNum: countTo
+        },
+          {
+            duration: 700,
+            easing: 'linear',
+            step: function () {
+              $this.text(`$${Math.floor(this.countNum)}.00`);
+            },
+            complete: function () {
+              $this.text(`$${CommaFormatted(this.countNum)}.00`);
+            }
+          });
+      });
+    });
+
+    /*--returns formatted amount for bank account--*/
+    function CommaFormatted(nStr) {
+      nStr += '';
+      var x = nStr.split('.');
+      var x1 = x[0];
+      var x2 = x.length > 1 ? '.' + x[1] : '';
+      var rgx = /(\d+)(\d{3})/;
+      while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+      }
+      return x1 + x2;
+    }
+  </script>
+
+</body>
+</html>

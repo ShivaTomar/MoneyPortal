@@ -1,0 +1,167 @@
+{{>Head}}
+
+<body>
+  {{>Header}}
+
+  <div class="parent-div">
+    <!-- Sidebar Navigation-->
+    <div id="SideMenu">
+      {{>SideMenu}}
+    </div>
+
+    <div class="page-content margin-left">
+
+      <div class="page-header ">
+        <div class="content-fulid d-flex justify-content-between">
+          <h2 class="page-title" id="household-title">{{title}}</h2>
+        </div>
+      </div>
+
+      <section id="dashBoard">
+        <div class="container" id="BodySection">
+
+          <div class="tab-content block-body collapsable" id="AccountTransactions">
+            <table id="dtBasicExample" class="table dataTable table-striped table-bordered table-sm" cellspacing="0"
+              width="100%">
+              <thead>
+                <tr>
+                  <th class="th-sm" id="Account">Account</th>
+                  <th class="th-sm" id="Current-Balance">Amount</th>
+                  <th class="th-sm" id="Low-Balance-Alert">Memo</th>
+                  <th class="th-sm" id="Owner">Budget</th>
+                  <th class="th-sm" id="Unlink">Date</th>
+                </tr>
+              </thead>
+
+              <tbody id="tableData">
+
+
+                {{#each AllTransactions}}
+
+                <tr>
+                  <td>
+                    <small>
+                      {{AccountName}}
+                      <br>
+                      ({{OwnerName}})
+                    </small>
+                  </td>
+
+                  <td>
+                    <strong class="text-amount-red"> ${{Amount}}.00</strong>
+                  </td>
+
+                  <td>
+                    <span class="update-memo">{{Memo}}</span><br>
+                    <small class="update-type">{{TransactionType}}</small>
+                  </td>
+
+                  <td data-sort="" class="align-middle">
+
+                    <select class="form-control budget-select" id="{{_id}}" name="CategoryItem">
+                      <option value=""></option>
+                      {{#each @root.Budgets}}
+                      {{#if (IsEmptyItem budgetItems)}}
+                      <optgroup label="{{name}} (${{budgetAmount}}.00)">
+                        {{#each budgetItems}}
+                        <option value={{../_id}},{{ItemId}} {{#if (selectBudgetItem ../../CategoryItemId ItemId)}} selected="selected" {{/if}}>{{name}}</option>
+                        {{/each}}
+                        {{/if}}
+                      </optgroup>
+                      {{/each}}
+
+                      <optgroup label="- Remove -">
+                        <option value="">Remove Budget</option>
+                      </optgroup>
+                    </select>
+                  </td>
+
+                  <td class="sorting_1 text-right">
+                    <small>{{Created.createMoment.date}}<br>{{Created.createMoment.time}}</small></td>
+                </tr>
+                {{/each}}
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </section>
+
+      <!--FOOTER-->
+      <footer id="footer">
+        <footer class="footer-block">
+          <footer class="container-fluid">
+            <p>2020 © MoneyPortal. A <a href="#">Q's Lab Technology</a> Service.</p>
+          </footer>
+        </footer>
+      </footer>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+  <!--Scripts-->
+  <script type="text/javascript" src="../shared.js"></script>
+  <script type="text/javascript" src="../all-script.js"></script>
+  <script type="text/javascript" src="../Bootstrap.js"></script>
+
+  <!--plugins-->
+  <script type="text/javascript" src="/../toastr.min.js"></script>
+  <script type="text/javascript" src="/../addons/jquery.min.js"></script>
+  <script type="text/javascript" src="/../addons/popper.min.js"></script>
+  <script type="text/javascript" src="/../addons/datatables.min.js"></script>
+
+  <script>
+
+    /*--ACTIVE SIDE MENU--*/
+    $('#dd-household-link').click()
+    $('#household-transactions').addClass('active')
+
+    /*--DRAW TABLE BANK ACCOUNT--*/
+    let tables = $('.table').DataTable({
+      "order": [4, 'desc']
+    });
+
+    $(document).on('change', '.budget-select', function(e) {
+      $.ajax({
+        type: "POST",
+        url: "/Budgets/UpdateBudgetItem",
+        data: {
+          transactionId: $(e.currentTarget).attr("id"),
+          budgetItemId: $(e.currentTarget).val()
+        },
+        dataType: "json",
+        success: function (result) {
+          if (result == true) {
+            toastr["success"]("The transactions budget has been updated!.", "Success!");
+          } else if (result.val == "reset") {
+            toastr["warning"]("The transactions budget has been removed.", "Budget Removed!");
+            $(e.currentTarget).val('')
+          } else {
+            toastr["error"]("There was an error updating your budget.", "Update Error!");
+          }
+        },
+        error: function (result) {
+          toastr["error"]("There was an error, please refresh.", "Submission Error!");
+        }
+      });
+    })
+    
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      $('.Household_feature-list').slideDown(300);
+      $('#feat-Household').addClass("click");
+    })
+
+    $('#feat-Household').click(function () {
+      $(this).toggleClass("click");
+      $('.Household_feature-list').slideToggle(300);
+      $('#feat-Household .toggle').toggleClass("rotate");
+    });
+  </script>
+</body>
+
+</html>

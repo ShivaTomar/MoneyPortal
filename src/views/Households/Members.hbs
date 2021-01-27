@@ -1,0 +1,105 @@
+{{>Head}}
+
+<body>
+  {{>Header}}
+
+  <div class="parent-div">
+    <!-- Sidebar Navigation-->
+    <div id="SideMenu">
+      {{>SideMenu}}
+    </div>
+
+    <div class="page-content margin-left">
+
+      <div class="page-header ">
+        <div class="content-fulid d-flex justify-content-between">
+          <h2 class="page-title" id="household-title">{{title}}</h2>
+        </div>
+      </div>
+
+      <section id="dashBoard">
+        <div class="container" id="BodySection">
+
+          <div class="row justify-content-center">
+            <div class="col-md-3 col6">
+              <div class="user-block block text-center" style="padding: 34px;">
+                <div class="avatar">
+                  <img src="../Images/Stock/personal.png" alt="..." class="img-fluid">
+                </div>
+                <h3 class="h5">{{Owner.FullName}}</h3>
+                <div class="contributions">Household Owner</div>
+                <div class="details d-flex public-user-block" style="justify-content: space-evenly;">
+                  <div class="item"><i
+                      class="fas fa-lg fa-university"></i><strong>{{Owner.JoinedAccountsCount}}</strong></div>
+                  <div class="item"><i class="fas fa-lg fa-money-check"></i><strong>{{Owner.TransactionsCount}}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {{#each Members}}
+            <div class="col-md-3 col6">
+              <div class="user-block block text-center" style="padding: 34px;">
+                <div class="avatar">
+                  <img src="../Images/Stock/personal.png" alt="..." class="img-fluid">
+                </div>
+                <h3 class="h5">{{FullName}}</h3>
+                <div class="contributions">Member</div>
+                <div class="details d-flex public-user-block" style="justify-content: space-evenly;">
+                  <div class="item"><i
+                      class="fas fa-lg fa-university"></i><strong>{{JoinedAccountsCount}}</strong></div>
+                  <div class="item"><i class="fas fa-lg fa-money-check"></i><strong>{{TransactionsCount}}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{/each}}
+
+          </div>
+
+
+        </div>
+      </section>
+
+      <!--FOOTER-->
+      <footer id="footer">
+        <footer class="footer-block">
+          <footer class="container-fluid">
+            <p>2020 © MoneyPortal. A <a href="#">Q's Lab Technology</a> Service.</p>
+          </footer>
+        </footer>
+      </footer>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  
+ <!--Scripts-->
+  <script type="text/javascript" src="../shared.js"></script>
+  <script type="text/javascript" src="../all-script.js"></script>
+  <script type="text/javascript" src="../Bootstrap.js"></script>
+
+  <!--plugin-->
+  <script type="text/javascript" src="/../toastr.min.js"></script>
+
+  <script>
+
+    /*--ACTIVE SIDE MENU--*/
+    $('#dd-household-link').click()
+    $('#household-members').addClass('active')
+
+    $(document).ready(function () {
+      $('.Household_feature-list').slideDown(300);
+      $('#feat-Household').addClass("click");
+    })
+
+    $('#feat-Household').click(function () {
+      $(this).toggleClass("click");
+      $('.Household_feature-list').slideToggle(300);
+      $('#feat-Household .toggle').toggleClass("rotate");
+    });
+
+  </script>
+</body>
+
+</html>

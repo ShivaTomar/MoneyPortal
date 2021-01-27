@@ -1,0 +1,148 @@
+<div id="account_transactions">
+  <div class="block" style="padding: 20px; overflow: auto;">
+
+    <div class="T-title d-flex" id="Transaction_title" style="margin-bottom: 20px;">
+      <div>
+        <strong>Transactions</strong>
+        <sub><small>({{AccountStaistics.Transactions}})</small></sub>
+      </div>
+      <ul class="nav nav-pills ml-auto" id="myTab" role="tablist" style="list-style: none; margin-top: 0;">
+        <li class="nav-item current">
+          <a class="nav-link" id="tab-all" data-toggle="tab" aria-controls="all">All</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="tab-withdrawals" data-toggle="tab" aria-controls="all">Withdrawals</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="tab-deposits" data-toggle="tab" aria-controls="all">Deposits</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="tab-transfers" data-toggle="tab" aria-controls="all">Transfers</a>
+        </li>
+      </ul>
+      <div class="chevron"><i class="fas fa-lg fa-chevron-up btn btn-block-minimize" id="chevron"></i></div>
+    </div>
+
+    <div class="tab-content block-body collapsable" id="myTabContent">
+      <table id="dtBasicExample" class="table dataTable table-striped table-bordered table-sm" cellspacing="0"
+        width="100%">
+        <thead>
+          <tr>
+            <th class="th-sm" id="amount">Amount</th>
+            <th class="th-sm" id="memo">Memo</th>
+            <th class="th-sm" id="date">Date</th>
+            <th class="th-sm sorting_disabled"></th>
+            <th class="th-sm d-none"></th>
+            <th class="th-sm d-none"></th>
+            <th class="th-sm d-none"></th>
+            <th class="th-sm d-none sorting_disabled"></th>
+
+          </tr>
+        </thead>
+        <tbody id="tableData">
+
+          {{#each TransactionDetails}}
+          <tr role="row" class="odd" id="Transaction-stats-Panel">
+
+            <td class="details"><strong class="{{#checkTransactionType TransactionType}} {{/checkTransactionType}}"
+                class="TransactionAmount"> {{#IsTransfer TransactionType Amount}} {{/IsTransfer}}</strong>
+            </td>
+
+            <td class="details"><span class="update-memo">{{Memo}}</span><br><small
+                class="update-type">{{TransactionType}}</small>
+              {{#IsWithdrawal TransactionType}} <span class="d-none Transaction-Type">Withdrawal</span> {{/IsWithdrawal}}
+            </td>
+
+            <td class="details sorting_1"><small>{{Created.createMoment.date}}<br>{{Created.createMoment.time}}</small></td>
+
+            <td class="btnContainer details" style="vertical-align: middle;">
+              <div class="text-right" id="{{_id}}">
+                <span class="edit-button btn"><i class="fas fa-lg fa-edit"></i></span>
+                <span class="delete-button btn" data-delete="{{_id}}"><i class="fas fa-lg fa-trash-alt"></i></span>
+              </div>
+            </td>
+
+            <td class="edit edit-amount d-none">
+              <div class="form-group" id="Amount-block">
+                <label class="amount-label control-label-sm" for="Amount">Amount</label>
+                <div class="col-md-9" style="display: flex;">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input type="number" class="form-control" name="Amount" required value="{{Amount}}">
+                  <div class="input-group-append">
+                    <span class="input-group-text">.00</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+
+
+            <td class="edit edit-type d-none">
+              <div class="form-group" id="Trans_Type-block">
+                <label class="Transaction-label control-label-sm" for="Type">Transaction Type</label>
+                <div class="col-md-9">
+                  <select class="form-control font" id="TransactionTypes" name="TransactionType" required="true">
+                    <option value="Point of Sale">Point of Sale</option>
+                    <option value="Card Number Entered">Card Number Entered</option>
+                    <option value="Cash Withdawal">Cash Withdawal</option>
+                    <option value="Check">Check</option>
+                    <option value="Deposit">Deposit</option>
+                    <option value="Transfer">Transfer</option>
+                  </select>
+                  
+                </div>
+              </div>
+            </td>
+
+            <td class="edit d-none">
+              <div class="form-group" id="Memo-block d-none">
+                <label class="Memo-label control-label-sm" for="Memo">Memo</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control" name="Memo" id="Memo-form" value="{{Memo}}">
+                </div>
+              </div>
+            </td>
+
+            <td class="btnContainer d-none edit" style="vertical-align: middle;">
+              <div class="text-right" id="{{_id}}">
+                <span class="cancel-button btn"><i class="fas fa-lg fa-times"></i></span>
+                <button type="submit" class="update-button btn" style="background: transparent;"><i class="fas fa-lg fa-check"></i></button>
+              </div>
+            </td>
+          </tr>
+
+          {{/each}}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--Scripts-->
+<script type="text/javascript" src="/../addons/jquery.min.js"></script>
+<script type="text/javascript" src="/../addons/popper.min.js"></script>
+<script type="text/javascript" src="/../addons/datatables.min.js"></script>
+
+<script>
+  $('#first-child').removeClass('active-primary');
+
+  var tables = $('.table').DataTable({
+    "order": [2, 'desc']
+  });
+
+  //DATATABLE FILTERS
+  $('#tab-all').on('click', function (e) {
+    tables.columns(1).search("", false, false, false).draw();
+  });
+  $('#tab-withdrawals').on('click', function (e) {
+    tables.column(1).search("Withdrawal", false, false, false).draw();
+  });
+  $('#tab-deposits').on('click', function (e) {
+    tables.columns(1).search("Deposit", false, false, false).draw();
+  });
+  $('#tab-transfers').on('click', function (e) {
+    tables.columns(1).search("Transfer", false, false, false).draw();
+  });  
+</script>

@@ -1,0 +1,123 @@
+
+/* =========================================NAVIGATION================================================================*/
+.container .sidebar-toggle-inactive{ visibility: hidden; }
+
+.sidebar-toggle-active.click{ 
+  transform: rotate(180deg); 
+  margin-left: -164px;
+}
+
+.text-primary.Hide{
+  visibility: hidden;
+  position: relative;
+}
+
+.text-primary.show::after{
+  visibility: visible;
+  position: absolute;
+  top: 2px;
+  left: 0;
+  content: "$";
+  color: #429244;
+}
+
+.sidebar-toggle-inactive.click{ transform: rotate(180deg); }
+
+/* =============================SIDEBAR LIST EXPAND/SHRINK & TOGGLE ROTATION=================================== */
+.sidebar ul ul{
+  position: static;
+  margin-top: auto;
+  display: none;
+}
+
+.feat-btn.click, #feat-Household.click{ background-color: #34373d; }
+
+.sidebar ul .feat-show.show, .Household_feature-list.show{  
+  display: block;
+ }
+
+ .sidebar ul li .feat-btn span.fas.rotate{  transform: rotate(-90deg); }
+ .sidebar ul li #Add-ba2 span.fas.rotate{  transform: rotate(90deg); }
+ .sidebar ul li #feat-Household span.fas.rotate{  transform: rotate(90deg); }
+ .sidebar ul li #feat-Household span.fas.rotate2{  transform: rotate(-90deg); }
+ 
+ 
+.current-base.Hide{ border: none !important; }
+
+
+/* ========================================SIDEBAR SHRINK/EXPAND=========================================================== */
+.title.Hide{ display: none; }
+
+.vertical-border.change{  border: none; }
+
+.sidebar.Shrink{ width: 80px !important; }
+
+.page-content.marginAdd{ margin-left: 80px; }
+
+.sidebar-header.change{ padding: 10px !important; }
+
+.sidebar a{ transition: all 0.2s ease-in-out !important; }
+
+.heading.change{
+  margin-left: 6px !important;
+  font-size: 1rem !important;  
+}
+
+nav ul li a.change{
+  padding: 10px 5px !important;
+  font-size: 0.8rem !important;
+  text-align: center;
+}
+
+.unstyled-lists li a i.fas.change{
+  margin-left: 22px !important;
+  vertical-align: -50% !important;
+  margin-right: 0px !important;
+}
+
+.sidebar ul li .feat-btn span.fas.change{ 
+  margin-top: 35px !important;
+  margin-right: 14px !important;
+  /*transform: rotate(-90deg) !important;*/
+ }
+
+#feat-Household span.fas.change{ 
+  margin-top: 25px !important;
+  margin-right: 14px !important;
+  /*transform: rotate(360deg) !important;*/
+ }
+
+.page-content.set{
+  width: calc(100% - 80px) !important;
+}
+
+#Email-section .form-control.width{
+  width: 200px !important;
+}
+
+#Password-section .form-control.width{
+  width: 200px !important;
+}
+
+/* ========================================MODAL HIDE/SHOW=========================================================== */
+.modal-visible{
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.15s linear;
+}
+
+.modal-trans{
+  transition: 0.15s !important;
+}
+
+.modalcontent-transaction{
+  transform: translate(0, 30px);
+  transition: all 0.19s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.card-show{ display: block !important; }
+.PCard-show{display: block !important;}
+
+.d-none{ display: none; }
+.d-show{ display: block; }

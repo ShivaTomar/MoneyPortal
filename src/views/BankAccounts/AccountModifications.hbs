@@ -1,0 +1,69 @@
+<!--EDIT ACCOUNT-TRANSACTION SWAL-POPUP-->
+<div id="modal-edit-Account" class="modal d-flex justify-content-center">
+  <!--Modal Content-->
+  <div class="modal-content">
+    <!--Modal Header-->
+    <div class="modal-header d-flex">
+      <h4 class="modal-title">Edit Account</h4>
+      <div class="data-dismiss">
+        <i class="fas fa-lg fa-times btn btn-block-close"></i>
+      </div>
+    </div>
+
+    <!--form-->
+    <form id="EditAccount" action="/BankAccounts/Edit/{{AccountDetails._id}}" method="post">
+      <div class="modal-body">
+        <!--Add Account-->
+        <div class="form-group row">
+          <label class="Account-label" for="Account_Name">Account Name</label>
+          <div class="col-md-9" style="padding-left: 36px;">
+            <input type="text" class="form-control" name="bankAccountName" id="Account_Name" value= "{{AccountDetails.name}}">
+          </div>
+        </div>
+
+        <!--Type Account-->
+        <div class="form-group row">
+          <label class="Type-label" for="Type">Type</label>
+          <div class="col-md-9" style="padding-left: 96px;">
+            <select class="form-control" name="Types" id="Types">
+              {{#checkType AccountDetails.accountType 'Checking'}}
+              <option value="Checking" selected>Checking</option>
+              <option value="Savings">Savings</option>
+              <option value="Credit">Credit</option>
+               {{/checkType}}
+              {{#checkType AccountDetails.accountType 'Savings'}}
+              <option value="Checking">Checking</option>
+              <option value="Savings" selected>Savings</option>
+              <option value="Credit">Credit</option>
+               {{/checkType}}
+              {{#checkType AccountDetails.accountType 'Credit'}}
+              <option value="Checking" selected>Checking</option>
+              <option value="Savings">Savings</option>
+              <option value="Credit" selected>Credit</option>
+               {{/checkType}}
+            </select>
+          </div>
+        </div>
+
+        <!--Low Balance Alert-->
+        <div class="form-group row">
+          <label class="lowBalance-label" for="Low_Balance">Low Balance Alert</label>
+          <div class="col-md-9" style="display: flex; padding-left: 20px;">
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</span>
+            </div>
+            <input type="number" class="form-control" name="lowBalance" value= "{{AccountDetails.LowBalance}}">
+            <div class="input-group-append">
+              <span class="input-group-text">.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Modal Footer-->
+      <div class="modal-footer d-flex">
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+    </form>
+  </div>
+</div>

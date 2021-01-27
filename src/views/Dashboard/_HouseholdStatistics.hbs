@@ -1,0 +1,61 @@
+<!--ACCOUNT DETAILS-->
+<div id="account-statistics">
+  <div class="row">
+    <div class="col-md-3 col-sm-6">
+      <div class="statistic-block block">
+        <div class="progress-details align-items-end justify-content-between">
+          <div class="title B-flex">
+            <div class="icon"><i class="fas fa-lg fa-money-bill-alt"></i></div>
+            <div class="words">Total Balance</div>
+          </div>
+          <div class="number dashtext-g" id="Total-Balance" data-count="{{HouseStats.TotalBalance}}">0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+      <div class="statistic-block block">
+        <div class="progress-details align-items-end justify-content-between">
+          <div class="title B-flex">
+            <div class="icon"><i class="fas fa-lg fa-list-ol"></i></div>
+            <div class="words">Total Budget</div>
+          </div>
+          <div class="number dashtext-y" id="Total-Budget" data-count="{{TotalBudget}}">0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+      <div class="statistic-block block">
+        <div class="progress-details align-items-end justify-content-between">
+          <div class="title B-flex">
+            <div class="icon"><i class="fas fa-lg fa-hand-holding-usd"></i></div>
+            <div class="words">Monthly Spending</div>
+          </div>
+          <div class="number dashtext-r" id="Monthly-Spending" data-count="{{HouseStats.MonthlySpending}}">0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+      <div class="statistic-block block">
+        <div class="progress-details align-items-end justify-content-between">
+          <div class="title B-flex">
+            <div class="icon"><i class="fas fa-lg fa-wallet"></i></div>
+            <div class="words">Monthly Deposits</div>
+          </div>
+          <div class="number dashtext-g" id="Monthly-Deposits" data-count="{{HouseStats.MonthlyDeposit}}">0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Scripts-->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+  document.getElementById('Total-Balance').innerHTML = `$${CommaFormatted($('#Total-Balance').attr('data-count'))}.00`;
+  document.getElementById('Total-Budget').innerHTML = `$${CommaFormatted($('#Total-Budget').attr('data-count'))}.00`;
+  document.getElementById('Monthly-Spending').innerHTML = `$${CommaFormatted($('#Monthly-Spending').attr('data-count'))}.00`;
+  document.getElementById('Monthly-Deposits').innerHTML = `$${CommaFormatted($('#Monthly-Deposits').attr('data-count'))}.00`;
+</script>

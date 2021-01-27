@@ -1,0 +1,102 @@
+<!--Lobby-option-row-->
+<div class="row" id="lobby-options-row">
+  <!--Create Household Btn-->
+  <div class="col4">
+    <div class="btn block" id="create-household">
+      <div class="btn-title d-flex justify-content-center">
+        <strong>Create Household</strong>
+      </div>
+      <div class="block-body d-flex justify-content-center">
+        <i class="fas fa-home fa-6x"></i>
+      </div>
+    </div>
+  </div>
+  <!--Join Household Btn-->
+  <div class="col4">
+    <div class="btn block" id="join-household">
+      <div class="btn-title d-flex justify-content-center">
+        <strong>Join Household</strong>
+      </div>
+      <div class="block-body d-flex justify-content-center">
+        <i class="fas fa-door-open fa-6x"></i>
+      </div>
+    </div>
+  </div>
+  <!--Add Bank Account Btn-->
+  <div class="col4">
+    <div class="btn block" id="add-bank-account">
+      <div class="btn-title d-flex justify-content-center">
+        <strong>Add Bank Account</strong>
+      </div>
+      <div class="block-body d-flex justify-content-center">
+        <i class="fas fa-university fa-6x"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modals-->
+<!---Create Household--->
+<div id="create-modal-household" class="modal d-flex justify-content-center">
+  <!--Modal Content-->
+  <div class="modal-content">
+    <!--Modal Header-->
+    <div class="modal-header d-flex">
+      <h4 class="modal-title">Create Household</h4>
+      <div class="data-dismiss">
+        <i class="fas fa-lg fa-times btn btn-block-close"></i>
+      </div>
+    </div>
+    <!--form-->
+    <form action="/Households/Create" method="POST" id="Add-Household_form">
+      <div class="modal-body">
+        <div class="form-group row">
+          <label class="Name-label" for="Name">Name</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="HouseholdName" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="Greetings-label" for="Greeting">Greeting</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="HouseholdGreeting" required>
+          </div>
+        </div>
+      </div>
+      <!--Modal Footer-->
+      <div class="modal-footer d-flex">
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!---Join Household--->
+<div id="join-modal-household" class="modal d-flex justify-content-center">
+  <!--Modal Content-->
+  <div class="modal-content">
+    <!--Modal Header-->
+    <div class="modal-header d-flex">
+      <h4 class="modal-title">Join Household</h4>
+      <div class="data-dismiss">
+        <i class="fas fa-lg fa-times btn btn-block-close"></i>
+      </div>
+    </div>
+    <!--form-->
+    <form action="">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="Invitation-label" for="Invitation_Code">Invitation Code</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="code" required>
+          </div>
+        </div>
+      </div>
+      <!--Modal Footer-->
+      <div class="modal-footer d-flex">
+        <button type="submit" class="btn btn-primary">Join!</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="form-group mb-0" id="div-budget-list"><select class="form-control" id="BudgetList" multiple="multiple"name="BudgetList" size="16">
+    {{#each Budgets}}
+      <optgroup label="{{name}} (${{budgetAmount}}.00)">
+
+        {{#if (IsEmptyItem budgetItems)}}
+          {{#each budgetItems}}
+             <option value = {{../_id}},{{ItemId}}>{{name}}</option>
+          {{/each}}
+        {{else}}
+          <option value="">- Create An Item -</option>
+        {{/if}}
+
+    </optgroup>
+    {{/each}}
+  </select>
+
+  <div class="mt-1"><span id="Total_Budget">Total Budget:
+      ${{#Generate_BudgetTotal Budgets}}{{/Generate_BudgetTotal}}.00</span></div>
+  <br>
+</div>

@@ -1,0 +1,205 @@
+/* ===============================================UTILITY CLASS============================================*/
+.container{ padding: 0px 18px; }
+
+/* ===============================================NAVIGATION-BAR============================================*/
+.text-primary{
+  visibility: hidden;
+  position: relative;
+}
+
+.text-primary::after{
+  visibility: visible;
+  position: absolute;
+  top: 2px;
+  left: -2px !important;
+  bottom: 10px;
+  content: "$";
+  color: #429244;
+}
+
+.container .sidebar-toggle-active{ display: none; }
+
+.container .sidebar-toggle-inactive{
+  margin-top: 4px;
+  visibility: visible;
+  margin-left: -172px;
+  width: 30px;
+  height: 30px;
+  line-height: 25px;
+  font-size: 1rem;
+}
+
+.text-right{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@media (max-width:575px){
+.logout-btn p{ visibility: hidden; }
+.logout-btn i{ visibility: visible; }
+.logout-btn i{ font-size: 14px; }
+
+/* ===============================================MODALS==================================================*/
+
+.modal-body input{ width: 328px; }
+
+#join-modal-household input{ width: 300px; }
+
+.modalcontent-transaction{
+  transform: translate(0, 12px);
+  transition: all 0.19s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+/* ===============================================BANK ACCOUNT RESPONSIVE================================*/
+.col5 img{
+  height: 110px;
+  max-width: auto;
+  border-radius: 50%;
+}
+
+.shortcut-bar{
+  flex-wrap: wrap;
+}
+
+#modal-add-Bank-Account input, #modal-add-Bank-Account select,
+#modal-edit-Account input, #modal-edit-Account select{ 
+  width: 325px !important; 
+}
+
+#modal-add-Bank-Account input[type = "number"], 
+#modal-edit-Account input[type = "number"]{ 
+  width: 242px !important; 
+}
+
+#modal-add-Bank-Account .col-md-9, 
+#modal-edit-Account .col-md-9{ 
+  width: 100%;
+}
+
+#modal-add-Bank-Account .row, #modal-edit-Account .row{
+  margin-right: 0px;
+  font-size: 16px;
+}
+
+#Email-section .form-control, #Password-section .form-control{
+  width: 270px !important;
+}
+
+.col5{ 
+  padding-left: 0px !important;
+  padding-right: 8px !important; }
+
+.col12{ font-size: 16px; }
+.col6{ margin-right: 0px !important; }
+.col-md-9[style]{ padding-left: 15px !important; }
+
+.Profile-row{
+  flex-direction: row;
+  margin-left: -15px;
+}
+
+.centered{
+  top: 11%;
+  left: 45%;
+  font-size: 22px;
+}
+
+#Edit_Profile .form-control{ width: 190px; }
+
+.mx-auto{ margin-right: auto; }
+
+
+/*---Account Deletion Confirm Swal-Box*/
+.swal-icon{
+  height: 70px;
+  width: 70px;
+}
+
+.swal-title{
+  margin-top: -25px;
+  font-size: 26px;
+}
+
+.swal-popup{
+  flex: 0.89;
+  width: 100%;
+}
+
+.swal-icon .swal-icon-content { font-size: 50px; }
+.swal-actions{ margin-top: 0px !important; }
+.swal-input::placeholder{ font-size: 14px; }
+
+.swal2-icon-content{
+  top: 18%;
+  height: 47px;
+}
+
+.swal2-content{
+  margin-bottom: 12px;
+}
+
+/*---Account Transaction Block*/
+#Transaction_title{ flex-direction: column !important; }
+#account_transactions{ margin-bottom: 50px; }
+.tab-content{ margin-top: 30px !important; }
+.form{ margin-bottom: 12px; }
+
+.chevron{
+  margin-left: auto;
+  margin-top: -108px;
+  margin-bottom: 50px;
+}
+
+.DataTable{
+  flex-direction: column;
+  align-items: center;
+}
+
+#searchBar{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dataTable-footer{
+  flex-direction: column;
+  text-align: center;
+}
+.pageNavigation{
+  margin-top: 10px;
+  justify-content: center;
+}
+#swal-container2 .swal-content{
+  margin-bottom: 15px;
+}
+}
+
+@media (max-width:361px){
+  .modal-body input{ width: 310px; }
+  #join-modal-household input{ width: 280px; }
+  #modal-add-Bank-Account input, #modal-add-Bank-Account select{ width: 310px !important; }
+  #modal-edit-Account input, #modal-edit-Account select{ width: 310px !important; }
+  #modal-add-Bank-Account input[type = "number"], #modal-edit-Account input[type = "number"]{ width: 227px !important; }
+}
+  
+@media (max-width:1045px){
+  .row{ 
+    flex-direction: column;
+    font-size: 10px;
+  }
+  #Transaction-block .form-group{ margin-bottom: 8px; }
+  #Amount-block .form-control{ flex: 1; }
+  .mt-mr-auto{ margin-top: 0px;}
+  #Transaction-block .row{ font-size: 16px }
+}
+
+/* ===============================================SIDE-BAR===================================================*/
+.margin-left{ margin: 0px;}
+#SideMenu .sidebar.show{ display: block; }
+.page-content{ width: 100%; }
+/* ===============================================MY-PROFILE PAGE============================================*/
+#MyProfile{ font-size: 16px; }
+#MyProfile .row{ flex-direction: row !important; }
+.update-success{ margin-right: 0; }

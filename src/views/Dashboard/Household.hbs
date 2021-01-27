@@ -1,0 +1,276 @@
+<!--SHORTCUT BUTTONS-->
+<div class="row-bar shortcut-bar">
+  <div class="col-auto" style="padding-left: 14px;">
+    <div class="shortcut btn shortcut-btn" id="shc-join-bank-account" data-toggle="join-bank-account">
+      <strong>Link Bank Account</strong> <i class="fas fa-university"></i></div>
+  </div>
+  <div class="col-auto padding-left">
+    <div class="shortcut btn shortcut-btn" id="shc-invite-member" data-toggle="invite-member"><strong>Invite
+        Members</strong> <i class="fas fa-user-plus"></i></div>
+  </div>
+  <div class="col-auto padding-left">
+    <div class="shortcut btn shortcut-btn" id="shc-create-budgets" data-toggle="create-budgets"><strong>Create
+        Budgets</strong> <i class="fas fa-sitemap"></i></div>
+  </div>
+  <div class="col-auto ml-auto">
+    <div class="shortcut btn leave-household" id="shc-delete-household"><strong>Delete Household</strong>
+      <i class="fas fa-house-damage"></i></div>
+  </div>
+</div>
+
+<!--ShortCut Modals-->
+<div class="row" id="shortcut-Models" style="flex-wrap: wrap;">
+
+  <div id="join-bank-account" class="pd-15 col-6 d-none">
+    <div class="block" id="LinkAccount-modal" style="padding: 20px;">
+      <div class="T-title d-flex">
+        <strong>Join Bank Account</strong>
+        <div class="col-auto ml-auto"><i class="fas fa-lg fa-chevron-up btn btn-block-minimize" id="chevron"></i></div>
+        <div class="col-auto"><i class="fas fa-lg fa-times btn btn-block-close" id="Join-account-dismiss"></i></div>
+      </div>
+
+
+      <form action="/Households/JoinBankAccount" id="UserAccounts-form" method="POST">
+        <div class="form-group d-flex" id="LinkAccount-form" style="margin-bottom: 12px; margin-top: 22px;">
+          <label class="control-label" for="Bank_Accounts" style="margin-left: -15px;">Bank Accounts</label>
+          <div class="col-md-8 ml-auto" id="user-accounts-warning" style="flex: 0.755;">
+
+            {{#if (AreAllLinked TotalCount linkedCount)}}
+            <select class="form-control" id="dd-user-bank-accounts" name="UsersBankAccounts">
+              {{#each HouseAccounts}}
+              <option value="{{_id}}">{{name}} - {{accountType}}</option>
+              {{/each}}
+            </select>
+            {{else}}
+            <p><strong class="text-warning">No accounts to link.</strong></p>
+            {{/if}}
+
+          </div>
+        </div>
+
+        {{#if (AreAllLinked TotalCount linkedCount)}}
+        <div class="form-group d-flex" id="LinkBtn">
+          <div class="col-auto ml-auto" style="margin-right: -5px;">
+            <button type="submit" class="btn btn-primary" id="btn-join-bank-account">Link</button>
+          </div>
+        </div>
+        {{/if}}
+
+      </form>
+    </div>
+  </div>
+
+  <div class="col-6 pd-15 d-none" id="create-budgets">
+    <div class="block" style="padding: 20px;">
+      <div class="T-title d-flex">
+        <strong>Create Budgets</strong>
+        <div class="col-auto ml-auto"><i class="fas fa-lg fa-chevron-up btn" id="budget-minimise"></i></div>
+        <div class="col-auto"><i class="fas fa-lg fa-times btn btn-block-close" id="budget-dismiss"></i></div>
+      </div>
+
+      <div class="block-body collapsable" id="Budget-content">
+        <div class="row">
+
+          <div class="col-md-9">
+            <form action="/Budgets/CreateBudget" method="POST" id="form-add-budget">
+
+              <div class="form-group row">
+                <label class="control-label col-3" for="Name">Name</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control" name="budgetName" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="control-label col-3" for="Description">Description</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control" name="budgetDescription" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="control-label col-3" for="Budget_Amount">Budget<br>Amount</label>
+                <div class="col-md-9 d-flex">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input type="number" class="form-control" name="Amount" required="">
+                  <div class="input-group-append">
+                    <span class="input-group-text">.00</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row" style="margin-right: -4px;">
+                <div class="ml-auto">
+                  <button type="submit" class="btn btn-primary" data-dismiss="modal">Create Budget</button>
+                </div>
+              </div>
+
+            </form>
+
+            <div class="T-title" style="margin-bottom: 1.2rem;">
+              <strong>Create Items</strong>
+            </div>
+
+            <form action="/Budgets/CreateBudgetItem" method="POST" id="form-add-budget-item">
+
+              <div class="form-group row">
+                <label for="Budget" class="control-label col-3">Budget</label>
+                <div class="col-md-9">
+                  <select class="form-control" id="dd-budgets" name="Budgets">
+                    {{#each Budgets}}
+                    <option value="{{_id}}">{{name}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="Name" class="control-label col-3">Name</label>
+
+                <div class="col-md-9">
+                  <input type="text" class="form-control" name="budgetItemName" id="budgetItemName" required="">
+                </div>
+              </div>
+
+              <div class="row mb-0">
+                <div class="col-auto ml-auto">
+                  <button type="submit" class="btn btn-primary" style="margin-bottom: 0;">Create Item</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-md-9" style="width: 70%;">
+            <form action="/Budgets/RemoveItem" id="form-remove-budget-item" method="post">
+
+              <div class="form-group mb-0" id="div-budget-list"><select class="form-control" id="BudgetList"
+                  multiple="multiple" name="BudgetList" size="16">
+                  {{#each Budgets}}
+                  <optgroup label="{{name}} (${{budgetAmount}}.00)">
+
+                    {{#if (IsEmptyItem budgetItems)}}
+                    {{#each budgetItems}}
+                    <option value={{../_id}},{{ItemId}}>{{name}}</option>
+                    {{/each}}
+                    {{else}}
+                    <option value="">- Create An Item -</option>
+                    {{/if}}
+
+                  </optgroup>
+                  {{/each}}
+                </select>
+
+                <div class="mt-1"><span id="Total_Budget">Total Budget:
+                    ${{#Generate_BudgetTotal Budgets}}{{/Generate_BudgetTotal}}.00</span></div>
+                <br>
+              </div>
+              <div class="row mb-0">
+                <div class="col-auto ml-auto">
+                  <button type="submit" class="btn btn-primary">Remove Item</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="invite-member" class="pd-15 col-6 d-none">
+    <div class="block" style="padding: 20px;">
+      <div class="T-title d-flex">
+        <strong>Invite Member</strong>
+        <div class="col-auto ml-auto"><i class="fas fa-lg fa-chevron-up btn Invite-minimize" id="chevron"></i></div>
+        <div class="col-auto"><i class="fas fa-lg fa-times btn btn-block-close" id="Invite-members-dismiss"></i></div>
+      </div>
+
+      <div class="block-body collapsable" id="Invite-members-content">
+        <form action="/Invitations/Invite" id="form-invite-member" method="post">
+
+          <div class="form-group row">
+            <label class="control-label col-md-4" for="Recipient_Emails">Recipient Emails</label>
+            <div class="col-md-8">
+              <textarea class="form-control" cols="20" id="RecipientEmails" name="RecipientEmails"
+                placeholder="Enter comma seperated emails." required="" rows="2"
+                style="margin-top: 0px; margin-bottom: 0px;"></textarea>
+            </div>
+          </div>
+          <div class="form-group row" style="margin-bottom: 4px;">
+            <label class="control-label col-md-4" for="Personal_Message">Personal Message</label>
+            <div class="col-md-8">
+              <textarea class="form-control" cols="20" id="PersonalMessage" name="PersonalMessage"
+                placeholder="Enter an optional invite message." rows="4"></textarea>
+            </div>
+          </div>
+          <div class="row no-gutters mb-0">
+            <div class="col-auto ml-auto">
+              <button type="submit" class="btn btn-primary" style="margin-bottom: 0;">Invite!</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--HOUSE STATS-->
+{{>_HouseholdStatistics}}
+
+<div class="row" id="BudgetsRow">
+  <div class="col-md-7 col4">
+
+    <div class="block" style="padding: 20px;">
+      <div class="T-title d-flex">
+        <strong>Budgets</strong>
+        <div class="col-auto ml-auto"><i class="fas fa-lg fa-chevron-up btn" id="Budget-minimise"></i></div>
+      </div>
+
+      <div class="block-body collapsable" id="budget-chart-content">
+
+        {{#if (IsBudgetNull BudgetItems)}}
+        <canvas id="budgets-bar-chart"></canvas>
+        {{else}}
+        <p><strong class="text-warning">Please add Budget Items above to get started!</strong></p>
+        {{/if}}
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-5 col4">
+
+    <div class="block" style="padding: 20px;">
+      <div class="T-title d-flex">
+        <strong>Budget Breakdown</strong>
+        <div class="col-auto ml-auto"><i class="fas fa-lg fa-chevron-up btn" id="Budget-Breakdown-minimise"></i></div>
+      </div>
+
+      <div class="block-body collapsable" id="Budget-Breakdown-content">
+
+
+        {{#if (IsBudgetNull BudgetItems)}}
+
+        <select class="form-control" id="budget-select" name="Budgets">
+          {{#each Budgets}}
+          {{#if (IsEmptyItem budgetItems)}}
+          <option value="{{_id}}">{{name}}</option>
+          {{/if}}
+          {{/each}}
+        </select><br />
+
+        <div id="breakdown-block" style="position: relative;">
+          <canvas id="budgets-breakdown-chart"></canvas>
+        </div>
+
+        {{else}}
+        <p><strong class="text-warning">Please add Budget Items above to get started!</strong></p>
+        {{/if}}
+
+      </div>
+    </div>
+  </div>
+</div>

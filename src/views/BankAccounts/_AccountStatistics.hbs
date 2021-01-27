@@ -1,0 +1,65 @@
+<!--Account-Statistics-->
+<div id="account-statistics">
+  <div class="row">
+    <!--Current Balance-->
+    <div class="col-md-3 col-sm-6">
+      <div class="statistic-block block">
+        <div class="progress-details align-items-end justify-content-between">
+          <div class="title B-flex">
+            <div class="icon"><i class="fas fa-lg fa-money-bill-alt"></i></div>
+            <div class="words">Current Balance</div>
+          </div>
+          <div class="number stats dashtext-g" id="bal" data-count="{{AccountDetails.CurrentBalance}}">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!--Monthly Spending-->
+    <div class="col-md-3 col-sm-6">
+      <div class="statistic-block block">
+        <div class="progress-details align-items-end justify-content-between">
+          <div class="title B-flex">
+            <div class="icon"><i class="fas fa-lg fa-receipt"></i></div>
+            <div class="words">Monthly Spending</div>
+          </div>
+          <div class="number stats dashtext-r" id="spen" data-count="{{AccountStaistics.Spending}}">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!--Monthly Deposits-->
+    <div class="col-md-3 col-sm-6">
+      <div class="statistic-block block">
+        <div class="progress-details align-items-end justify-content-between">
+          <div class="title B-flex">
+            <div class="icon"><i class="fas fa-lg fa-hand-holding-usd"></i></div>
+            <div class="words">Monthly Deposits</div>
+          </div>
+          <div class="number stats dashtext-g" id="depo" data-count="{{AccountStaistics.Deposits}}">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!--Monthly Transactions-->
+    <div class="col-md-3 col-sm-6">
+      <div class="statistic-block block">
+        <div class="progress-details align-items-end justify-content-between">
+          <div class="title B-flex">
+            <div class="icon"><i class="fas fa-lg fa-exchange-alt"></i></div>
+            <div class="words">Monthly Transactions</div>
+          </div>
+          <div class="number dashtext-y" id="trans" data-count="{{AccountStaistics.Transactions}}">{{AccountStaistics.Transactions}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Scripts-->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+  document.getElementById('bal').innerHTML = `$${CommaFormatted($('#bal').attr('data-count'))}.00`;
+  document.getElementById('spen').innerHTML = `$${CommaFormatted($('#spen').attr('data-count'))}.00`;
+  document.getElementById('depo').innerHTML = `$${CommaFormatted($('#depo').attr('data-count'))}.00`;
+  document.getElementById('trans').innerHTML = $('#trans').attr('data-count');
+</script>

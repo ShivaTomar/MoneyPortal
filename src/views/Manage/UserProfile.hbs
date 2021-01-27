@@ -1,0 +1,311 @@
+{{>Head}}
+
+<body>
+  {{>Header}}
+
+  <div class="parent-div">
+    <!-- Sidebar Navigation-->
+    <div id="SideMenu">
+      {{>SideMenu}}
+    </div>
+
+    <div class="page-content margin-left">
+
+      <div class="page-header ">
+        <div class="content-fulid d-flex justify-content-between">
+          <h2 class="page-title" id="household-title">{{title}}</h2>
+        </div>
+      </div>
+
+      <section id="dashBoard">
+        <div class="container" id="BodySection">
+
+          <!--My Profile-->
+          <div class="Profile-row container" id="MyProfile">
+            <div class="col6">
+              <div class="card">
+                <div class="Profile-header d-flex text-muted">
+                  <p>Personal</p>
+                </div>
+
+                <form action="" id="Profile-Info">
+                  <div class="body-card">
+                    <div class="row" id="Profile">
+                      <div class="col7">
+                        <h2 class="lead">
+                          <b><strong>Demo Personal</strong></b>
+                        </h2>
+                        <p class="text-muted">
+                          <b>About:</b>
+                        </p>
+                        <ul>
+                          <li class="small text-muted" id="homeAddress">
+                            <span class="fas-fa">
+                              <i class="fas fa-lg fa-home"></i>
+                            </span>
+
+                            <p style="display: inline;">Address: </p>
+                          </li>
+                          <li class="small text-muted" id="Phone__">
+                            <span class="fas-fa">
+                              <i class="fas fa-lg fa-phone"></i>
+                            </span>
+                            <p style="display: inline;">Phone#:</p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col5">
+                        <img src="../Images/Stock/personal.png" id="header_ProfileImage">
+                      </div>
+                    </div>
+
+
+                    <!-- EDIT USER PROFILE -->
+                    <div class="row d-none" id="Edit_Profile">
+                      <div class="col9" style="padding: 15px;">
+                        <div class="form-horizontal">
+                          <div class="form-group d-flex margin-bottom">
+                            <label class="col-md-8" for="FirstName">First Name</label>
+                            <div class="col8">
+                              <input type="text" class="form-control" id="FirstName" name="FirstName">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-horizontal">
+                          <div class="form-group d-flex margin-bottom">
+                            <label class="col-md-8" for="LastName">Last Name</label>
+                            <div class="col8">
+                              <input type="text" class="form-control" id="LastName" name="LastName">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-horizontal">
+                          <div class="form-group d-flex margin-bottom">
+                            <label class="col-md-8" for="Address">Address</label>
+                            <div class="col8" style="padding-left: 17px;">
+                              <input type="text" class="form-control" id="Address" name="Address">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-horizontal">
+                          <div class="form-group d-flex margin-bottom">
+                            <label class="col-md-8" for="City">City</label>
+                            <div class="col8" style="padding-left:46px;">
+                              <input type="text" class="form-control" id="City" name="City">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-horizontal">
+                          <div class="form-group d-flex margin-bottom">
+                            <label class="col-md-8" for="State">State</label>
+                            <div class="col8" style="padding-left: 38px;">
+                              <input type="text" class="form-control" id="State" name="State">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-horizontal">
+                          <div class="form-group d-flex margin-bottom">
+                            <label class="col-md-8" for="Zip">Zip</label>
+                            <div class="col8" style="padding-left: 52px;">
+                              <input type="number" class="form-control" id="Zip" name="Zip">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-horizontal">
+                          <div class="form-group d-flex margin-bottom">
+                            <label class="col-md-8" for="Phone">Phone#</label>
+                            <div class="col8" style="padding-left: 22px;">
+                              <input type="text" class="form-control" id="Phone" name="Phone">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-horizontal">
+                          <div class="form-group d-flex margin-bottom">
+                            <label class="col-md-8" for="AboutMe">About Me</label>
+                            <div class="col8" style="padding-left: 8px;">
+                              <input type="text" class="form-control" id="AboutMe" name="AboutMe">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col5">
+                        <div class="profile-container" style="border-radius: 50%;">
+                          <img id="ProfileImage" src="./Content/Images/Stock/personal.png" class="image rounded-circle">
+                          <div class="centered">
+                            <label for="imageUpload" id="Upload" style="cursor: pointer;">Edit</label>
+                          </div>
+                          <input type="file" name="image" id="imageUpload" style="display: none;">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="Profile-footer d-flex Edit_Profile d-none" style="justify-content: space-between;">
+                    <button type="button" class="btn btn-secondary" id="Cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="save">Save</button>
+                  </div>
+
+                </form>
+
+                <div class="Profile-footer d-flex Profile">
+                  <button type="button" class="btn btn-primary" id="Edit">Edit Profile</button>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col6" id="id-password-section">
+              <div class="card">
+                <div class="Profile-header d-flex text-muted">
+                  <p>Account Options</p>
+                </div>
+
+                <div class="body-card">
+                  <div class="row">
+                    <div class="col12">
+                      <a id="Change-Email">Change Email</a>
+                    </div>
+                    <div class="col12">
+                      <a id="Change-Password">Change Password</a>
+                    </div>
+                    <div class="col12">
+                      <p class="update-success"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col6" id="Email-section">
+              <div class="card" style="display: none;">
+                <div class="Profile-header d-flex text-muted">
+                  <p>Change Email Address</p>
+                </div>
+
+                <div class="body-card">
+                  <div class="row">
+                    <form action="">
+                      <div class="form-group col12">
+                        <label class="Email-Label" for="New_Email_Address">New Email Address</label>
+                        <div class="">
+                          <input type="email" name="newEmail" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="form-group col12">
+                        <button class="btn btn-primary" type="submit">Change Email</button>
+                      </div>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col6" id="Password-section">
+              <div class="card" style="display: none;">
+                <div class="Profile-header d-flex text-muted">
+                  <p>Change Password</p>
+                </div>
+
+                <div class="body-card">
+                  <div class="row">
+                    <form action="">
+                      <div class="form-group col12">
+                        <label class="Password-Label" for="New_Email_Address">Old Password</label>
+                        <div class="">
+                          <input type="password" name="oldPassword" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="form-group col12">
+                        <label class="Password-Label" for="New_Email_Address">New Password</label>
+                        <div class="">
+                          <input type="password" name="newPassword" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="form-group col12">
+                        <label class="Password-Label" for="New_Email_Address">Confirm Password</label>
+                        <div class="">
+                          <input type="password" name="configPassword" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="form-group col12">
+                        <button class="btn btn-primary" type="submit">Change Password</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!--FOOTER-->
+      <footer id="footer">
+        <footer class="footer-block">
+          <footer class="container-fluid">
+            <p>2020 © MoneyPortal. A <a href="#">Q's Lab Technology</a> Service.</p>
+          </footer>
+        </footer>
+      </footer>
+    </div>
+  </div>
+
+  <!--Scripts-->
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script type="text/javascript" src="../Bootstrap.js"></script>
+
+   <!--Scripts-->
+  <script type="text/javascript" src="../Utilities.js"></script>
+  <script type="text/javascript" src="../shared.js"></script>
+  
+  <script>
+     $('#first-child').removeClass('active-primary');
+     
+    /*----Email PopUp----*/
+    $('#Change-Email').on("click", () => {
+      $("#Email-section .card").fadeToggle(150);
+    });
+
+    /*----Password PopUp----*/
+    $('#Change-Password').on("click", () => {
+      $('#Password-section .card').fadeToggle(150);
+    });
+
+    /*----EditProfile Show/Hide----*/
+    $('#Edit').on("click", () => {
+      $('#Profile').addClass("d-none");
+      $('.Profile').addClass("d-none");
+      $('#Edit_Profile').removeClass("d-none");
+      $('.Edit_Profile').removeClass("d-none");
+    })
+
+    $('#Cancel').on("click", () => {
+      $('#Profile').removeClass("d-none");
+      $('.Profile').removeClass("d-none");
+      $('#Edit_Profile').addClass("d-none");
+      $('.Edit_Profile').addClass("d-none");
+    })
+
+    $('#feat-Household').click(function () {
+      $(this).toggleClass("click");
+      $('.Household_feature-list').slideToggle(300);
+      $('#feat-Household .toggle').toggleClass("rotate2");
+    });
+  </script>
+
+</body>
+</html>
