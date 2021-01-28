@@ -17,15 +17,15 @@ MoneyPortal is a financial web application complete with bank accounts, budgets 
     - Delete Bank Account
     - Update Bank Account Details
     
-   **Member Role Permissions**
-   - When user is logged in as a Member:
+  **Member Role Permissions**
+ - When user is logged in as a Member:
     - Includes all Personal role features.
     - Link or Unlink their Bank Account to the Household.
     - Permissions to assign Budget to the House transactions.
     - Permissions the Leave Household.
     
-    **Owner Role Permissions**
-   - When user is logged in as the Owner:
+  **Owner Role Permissions**
+ - When user is logged in as the Owner:
     - Includes all Personal role features.
     - Link or Unlink anyones Bank Account to the Household.
     - Permission to Invite Members via email attach with a greeting message.
@@ -33,9 +33,60 @@ MoneyPortal is a financial web application complete with bank accounts, budgets 
     - Permission to assign Budget to the House transactions.
     - Permission to Delete the Household.
     
-    
+# UpComing Features.
+  1.  **Authentication**
+  2.  **Login System with Demo roles**
+  3.  **Invite Members & Join Household**
+
 # Screenshots
 
+**Add Bank Account**
+
+![Alt text](Screenshots/AddAccount.png)
+
+**Add & Remove Transactions**
+
+*Add*
+![Alt text](Screenshots/AddTransaction2.png)
+
+*Remove*
+![Alt text](Screenshots/RemoveTransaction1.png)
+
+![Alt text](Screenshots/RemoveTransaction2.png)
+
+**Update & Delete Bank Account**
+
+*Update*
+![Alt text](Screenshots/UpdateAccount.png)
+
+*Delete Bank Account*
+![Alt text](Screenshots/DeleteAccount1.png)
+
+![Alt text](Screenshots/DeleteAccount2.png)
+
+**Household Budget Graphics**
+
+![Alt text](Screenshots/Graphic2.png)
+
+**Join Bank Account to the Household**
+
+![Alt text](Screenshots/JoinAccount1.png)
+
+![Alt text](Screenshots/JoinAccount2.png)
+
+![Alt text](Screenshots/JoinAccount3.png)
+
+**Assign Budget to Transactions**
+
+*Create*
+![Alt text](Screenshots/BudgetAssign1.png)
+
+![Alt text](Screenshots/BudgetAssign2.png)
+
+*Remove*
+![Alt text](Screenshots/BudgetAssign3.png)
+
+![Alt text](Screenshots/BudgetAssign4.png)
 
 
 # MANUAL INSTALLATION
