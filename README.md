@@ -95,3 +95,6 @@ MoneyPortal is a financial web application complete with bank accounts, budgets 
 - Copy+Paste all files into project.
 - Install all node modules.
 - Run command: node app.js
+
+# For more refer to the Design Document
+https://drive.google.com/file/d/1UnVy2aq1hZcYu2RZQ9IVpmpoNMP0mFAv/view
