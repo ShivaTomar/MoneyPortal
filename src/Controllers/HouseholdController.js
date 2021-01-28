@@ -106,6 +106,8 @@ exports.Bank_Accounts = async (req, res) => {
     const BankAccounts = await BankAccountModel.find({ "HouseholdId": user[0].HouseholdId });
     const accounts = await BankAccountModel.find({ "email": demo_user });
 
+    console.log(BankAccounts);
+
     res.status(200).render("./Households/BankAccounts", {
       role: user[0].role,
       ownerEmail: user[0].email,

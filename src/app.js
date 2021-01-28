@@ -6,7 +6,6 @@ const handleBars = require(__dirname + "/Handlebars.config");
 require("./App_Start/_connection");
 
 /*--Import all require APIs--*/
-const AccountsAPI = require(__dirname + "/Routes/AccountRoutes");
 const DashboradAPI = require(__dirname + "/Routes/DashboardRoutes");
 const UserProfileAPI = require(__dirname + "/Routes/UserProfileRoutes");
 const BankAccountsAPI = require(__dirname + "/Routes/BankAccountsRoutes");
@@ -35,7 +34,6 @@ function _appConfig() {
 
 /*--routers configuration--*/
 function routersConfig() {
-  app.use("/Accounts", AccountsAPI.router);
   app.use("/Dashboard", DashboradAPI.router);
   app.use("/Manage", UserProfileAPI.router);
   app.use("/BankAccounts", BankAccountsAPI.router);

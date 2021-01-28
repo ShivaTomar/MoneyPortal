@@ -1,6 +1,12 @@
 const router = require("express").Router();
 const BankAccountControllers = require("../Controllers/BankAccountController");
 
+/*--Add bank account--*/
+router.post("/AddAccount", BankAccountControllers.AddBankAccount);
+
+/*Get all bank accounts--*/
+router.get("/All", BankAccountControllers.AllAccount);
+
 /*--Delete bank account--*/
 router.get("/Delete/:accountId", BankAccountControllers.DeleteBankAccount);
 

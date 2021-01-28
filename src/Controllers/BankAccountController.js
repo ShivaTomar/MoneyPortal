@@ -24,7 +24,7 @@ exports.AddBankAccount = async (req, res) => {
   try {
     const Account = new BankAccountModel(accountData);
     await Account.save();
-    res.redirect("back");
+    res.status(200).redirect("back");
   }
   catch (error) { res.status(400).send(error.message); }
 }
