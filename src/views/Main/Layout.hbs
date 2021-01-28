@@ -42,7 +42,7 @@
 
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
-<!--Scripts-->
+  <!--Scripts-->
   <script type="text/javascript" src="../shared.js"></script>
   <script type="text/javascript" src="../all-script.js"></script>
   <script type="text/javascript" src="../Bootstrap.js"></script>
@@ -53,6 +53,20 @@
   <script type="text/javascript" src="/../addons/Chart.js"></script>
 
   <script>
+
+    var role = document.querySelector('.heading');
+ 
+    if (sessionStorage.getItem("IsVisited") == null) {
+      Swal.fire({
+        title: 'Welcome to the Money Portal Service!',
+        text: `Note - You're logged in as a ${role.innerHTML} User.`,
+        icon: 'success',
+        button: "okay"
+      });
+
+      sessionStorage.setItem("IsVisited", true);
+    }
+
     /*--DELETE HOUSEHOLD--*/
     $('#shc-delete-household').on("click", () => {
       Swal.fire({
@@ -385,4 +399,5 @@
   </script>
 
 </body>
+
 </html>
