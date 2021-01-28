@@ -40,30 +40,6 @@ MoneyPortal is a financial web application complete with bank accounts, budgets 
 
 # Screenshots
 
-**Add Bank Account**
-
-![Alt text](Screenshots/AddAccount.png)
-
-**Add & Remove Transactions**
-
-*Add*
-![Alt text](Screenshots/AddTransaction2.png)
-
-*Remove*
-![Alt text](Screenshots/RemoveTransaction1.png)
-
-![Alt text](Screenshots/RemoveTransaction2.png)
-
-**Update & Delete Bank Account**
-
-*Update*
-![Alt text](Screenshots/UpdateAccount.png)
-
-*Delete Bank Account*
-![Alt text](Screenshots/DeleteAccount1.png)
-
-![Alt text](Screenshots/DeleteAccount2.png)
-
 **Household Budget Graphics**
 
 ![Alt text](Screenshots/Graphic2.png)
@@ -87,6 +63,11 @@ MoneyPortal is a financial web application complete with bank accounts, budgets 
 ![Alt text](Screenshots/BudgetAssign3.png)
 
 ![Alt text](Screenshots/BudgetAssign4.png)
+
+**Create Budget**
+
+![Alt text](Screenshots/AddBudget2.png)
+
 
 
 # MANUAL INSTALLATION
